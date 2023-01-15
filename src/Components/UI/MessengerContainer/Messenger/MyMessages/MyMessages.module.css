@@ -1,0 +1,28 @@
+.myMessages {
+    text-indent: 100px;
+    padding: 30px;
+}
+
+.myMessagesList {
+    padding: 5px;
+}
+
+.events {
+    padding: 10px;
+}
+
+.textArea {
+    color: green;
+    font-size: 30px;
+}
+
+.sendButton {
+    color: green;
+    font-size: 30px;
+}
+
+.deleteButton {
+    color: red;
+    font-size: 30px;
+}
+
