@@ -1,0 +1,7 @@
+.navBarNames {
+    grid-area: navBarNames;
+    background-color: brown;
+    padding: 20px;
+}
+
+

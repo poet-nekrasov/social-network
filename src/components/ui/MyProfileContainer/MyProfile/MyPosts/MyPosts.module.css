@@ -1,0 +1,24 @@
+.myPosts {
+    color: sienna;
+}
+
+.textArea {
+    color: green;
+    font-size: 30px;
+}
+
+.items {
+    color: navajowhite;
+}
+
+.addButton {
+    color: green;
+    font-size: 30px;
+}
+
+.deleteButton{
+    color: red;
+    font-size: 30px;
+}
+
+

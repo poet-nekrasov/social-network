@@ -1,0 +1,47 @@
+.usersPageWrapper {
+
+}
+
+.users {
+
+}
+
+.usersPagination {
+
+}
+
+.name {
+
+}
+
+.userAvatar {
+    width: 40px;
+    height: 40px;
+}
+
+.selected {
+    font-weight: bold;
+}
+
+.pageNumbers {
+
+}
+
+.status {
+
+}
+
+.followed {
+
+}
+
+.followButton {
+    color: green;
+}
+
+.unfollowButton {
+    color: red;
+}
+
+
+

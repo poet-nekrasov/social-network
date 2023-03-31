@@ -1,0 +1,15 @@
+.wrapper {
+    display: grid;
+    grid-template-areas:
+    'header header'
+    'navBarNames myProfile';
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    width: 1300px;
+    font-size: 30px;
+}
+
+.content {
+    background-color: aqua;
+    padding: 20px;
+}
