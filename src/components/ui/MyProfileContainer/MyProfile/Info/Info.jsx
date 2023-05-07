@@ -13,7 +13,7 @@ const Info = (props) => {
         <div className={classes.info}>
 
             <div className={classes.avatar}>
-                <img src={props.profile.photos.large} alt='human'/>
+                <img src={props.profile.photos.small} alt='human'/>
             </div>
 
             <div className={classes.myProfileDescription}>

@@ -8,3 +8,10 @@
     width: 80px;
     height: 50px;
 }
+
+.login {
+    float: right;
+}
+.login a {
+    color: white;
+}

@@ -20,12 +20,12 @@ const MyPosts = (props) => {
 
     return (
 
-        <div className={ classes.myPosts }>
+        <div className={classes.myPosts}>
 
             <h3>My posts</h3>
 
             <textarea
-                className={ classes.textArea}
+                className={classes.textArea}
                 placeholder='Enter text is here'
                 value={props.myPosts.values.currentPostText}
                 onChange={onUpdateMyNewPost}
@@ -45,7 +45,7 @@ const MyPosts = (props) => {
                 {props.myPosts.values.deleteButton}
             </button>
 
-            <div className={ classes.items }>
+            <div className={classes.items}>
                 {myPostsList}
             </div>
 

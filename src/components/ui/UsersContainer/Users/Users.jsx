@@ -25,17 +25,25 @@ let Users = (props) => {
     );
 
     let elementsUsers = props.usersList.map(u => {
+
             return (
+
                 <div key={u.id}>
 
                     <div>
-                        <img
-                            className={classes.userAvatar}
-                            src={u.photos.small !== null
-                                ? u.photos.small
-                                : images.defaultUserAvatar}
-                            alt="avatar of user"
-                        />
+
+                        <NavLink to={`/My Profile/${u.id}`}>
+
+                            <img
+                                className={classes.userAvatar}
+                                src={u.photos.small !== null
+                                    ? u.photos.small
+                                    : images.defaultUserAvatar}
+                                alt="avatar of user"
+                            />
+
+                        </NavLink>
+
                     </div>
 
                     <div>
@@ -69,6 +77,7 @@ let Users = (props) => {
     );
 
     return (
+
         <div className={classes.usersPageWrapper}>
 
             <div className={classes.usersPagination}>
@@ -81,6 +90,7 @@ let Users = (props) => {
 
         </div>
     );
+
 }
 
 export default Users;

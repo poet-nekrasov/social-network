@@ -7,8 +7,8 @@ import {
     setUsers, toggleIsFetching,
     unfollowFromUser
 } from "../../../Redux/reducers/usersReducer";
-import axios from "axios";
 import {Preloader} from "../../Preloader";
+import {apiFollowOnUser, apiSetCurrentPage, apiSetUsers, apiUnfollowFromUser} from "../../../api/api";
 
 class UsersContainer extends React.Component {
 
@@ -16,11 +16,11 @@ class UsersContainer extends React.Component {
 
         this.props.toggleIsFetching(true);
 
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.users.inOnePageUsersAmount}`)
-            .then(response => {
+        apiSetUsers(this.props.users.inOnePageUsersAmount)
+
+            .then(data => {
                 this.props.toggleIsFetching(false);
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             });
 
     }
@@ -30,11 +30,29 @@ class UsersContainer extends React.Component {
         this.props.toggleIsFetching(true);
         this.props.setCurrentPage(currentPage);
 
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.users.inOnePageUsersAmount}&page=${currentPage}`)
-            .then(response => {
+        apiSetCurrentPage(this.props.users.inOnePageUsersAmount, currentPage)
+
+            .then(data => {
                 this.props.toggleIsFetching(false);
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
+            });
+
+    }
+
+    onFollowOnUser = (userId) => {
+
+        apiFollowOnUser(userId)
+            .then(data => {
+                this.props.followOnUser(userId);
+            });
+
+    }
+
+    onUnfollowFromUser = (userId) => {
+
+        apiUnfollowFromUser(userId)
+            .then(data => {
+                this.props.unfollowFromUser(userId);
             });
 
     }
@@ -57,8 +75,8 @@ class UsersContainer extends React.Component {
                     unfollowButtonValue={this.props.users.unfollowButtonValue}
 
                     onSetCurrentPage={this.onSetCurrentPage}
-                    onFollowOnUser={this.props.followOnUser}
-                    onUnfollowFromUser={this.props.unfollowFromUser}
+                    onFollowOnUser={this.onFollowOnUser}
+                    onUnfollowFromUser={this.onUnfollowFromUser}
 
                 />
 
