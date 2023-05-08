@@ -7,7 +7,7 @@ import {
 import {connect} from "react-redux";
 import MyProfile from "./MyProfile/MyProfile";
 import withRouter from "../../../withRouter/withRouter";
-import {apiSetUserProfile} from "../../../api/api";
+import {myProfileAPI} from "../../../api/api";
 
 class MyProfileContainer extends React.Component {
 
@@ -15,7 +15,7 @@ class MyProfileContainer extends React.Component {
 
         let userId = this.props.router.params.userId;
 
-        apiSetUserProfile(userId)
+        myProfileAPI.getUserProfile(userId)
             .then(data => {
                 this.props.setUserProfile(data);
             })

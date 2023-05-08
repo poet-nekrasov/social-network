@@ -47,26 +47,35 @@ let Users = (props) => {
                     </div>
 
                     <div>
-                        {u.followed === true
+
+                        {
+
+                            u.followed === true
+
                             ?
                             <button
                                 className={classes.unfollowButton}
                                 onClick={() => props.onUnfollowFromUser(u.id)}
+                                disabled={props.isFetchingFollow.some(id => id === u.id)}
                             >
                                 {props.unfollowButtonValue}
                             </button>
+
                             :
                             <button
                                 className={classes.followButton}
                                 onClick={() => props.onFollowOnUser(u.id)}
+                                disabled={props.isFetchingFollow.some(id => id === u.id)}
                             >
                                 {props.followButtonValue}
                             </button>
+
                         }
+
                     </div>
 
                     <div className={classes.name}>
-                        <NavLink to={'/profile/' + u.id}>
+                        <NavLink to={`/My profile/${u.id}`}>
                             {u.name}
                         </NavLink>
                     </div>

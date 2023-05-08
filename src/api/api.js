@@ -1,62 +1,85 @@
 import axios from "axios";
 
-export const apiSetAuthUserData = () => {
+const sample = axios.create({
+    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+    withCredentials: true,
+    headers: {
+        'API-KEY': '1ff82408-e92f-4ead-95a8-bc0197add936'
+    }
+});
 
-    return axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true})
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                return response.data;
-            }
-        });
+export const authUserAPI = {
 
-}
-export const apiSetUserProfile = (userId) => {
+    getAuthUserData() {
 
-    return axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {withCredentials: true})
-        .then(response => {
-                return response.data;
-            }
-        );
+        return sample.get('auth/me')
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    return response.data;
+                }
+            });
 
-}
-export const apiSetUsers = (inOnePageUsersAmount) => {
-
-    return axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${inOnePageUsersAmount}`, {withCredentials: true})
-        .then(response => {
-                return response.data;
-            }
-        );
+    }
 
 }
 
-export const apiSetCurrentPage = (inOnePageUsersAmount, currentPage) => {
+export const myProfileAPI = {
 
-    return axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${inOnePageUsersAmount}&page=${currentPage}`, {withCredentials: true})
-        .then(response => {
-                return response.data;
-            }
-        );
+    getUserProfile(userId) {
 
-}
+        return sample.get(`profile/${userId}`)
+            .then(response => {
+                    return response.data;
+                }
+            );
 
-export const apiFollowOnUser = (userId) => {
-
-    return axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {withCredentials: true})
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                return response.data;
-            }
-        });
+    }
 
 }
 
-export const apiUnfollowFromUser = (userId) => {
+export const usersAPI = {
 
-    return axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {withCredentials: true})
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                return response.data;
-            }
-        });
+    getUsers(inOnePageUsersAmount) {
+
+        return sample.get(`users?count=${inOnePageUsersAmount}`)
+            .then(response => {
+                    return response.data;
+                }
+            );
+
+    },
+
+    getCurrentPage(inOnePageUsersAmount, currentPage) {
+
+        return sample.get(`users?count=${inOnePageUsersAmount}&page=${currentPage}`)
+            .then(response => {
+                    return response.data;
+                }
+            );
+
+    },
+
+    postSubOnUser(userId) {
+
+        return sample.post(`follow/${userId}`, {}, {withCredentials: true})
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    return response.data;
+                }
+            });
+
+    },
+
+    deleteSubOnUser(userId) {
+
+        return sample.delete(`follow/${userId}`)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    return response.data;
+                }
+            });
+
+    },
+
 
 }

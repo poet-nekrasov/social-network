@@ -3,12 +3,16 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const TOGGLE_IS_FETCHING_FOLLOW = 'TOGGLE_IS_FETCHING_FOLLOW';
 
 export const setUsers = (usersList) => ({type: SET_USERS, usersList});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
+
 export const followOnUser = (userId) => ({type: FOLLOW, userId});
 export const unfollowFromUser = (userId) => ({type: UNFOLLOW, userId});
+
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const toggleIsFetchingFollow = (isFetching, userId) => ({type: TOGGLE_IS_FETCHING_FOLLOW, isFetching, userId});
 
 let initialState = {
     usersList: [],
@@ -17,7 +21,8 @@ let initialState = {
     currentPage: 1,
     followButtonValue: 'Follow',
     unfollowButtonValue: 'Unfollow',
-    isFetching: true
+    isFetching: true,
+    isFetchingFollow: []
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -33,12 +38,10 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-
                 usersList: state.usersList.map(u => {
                     if (u.id === action.userId) {
                         return {...u, followed: true};
                     }
-
                     return u;
                 })
             };
@@ -46,18 +49,24 @@ const usersReducer = (state = initialState, action) => {
         case UNFOLLOW:
             return {
                 ...state,
-
                 usersList: state.usersList.map(u => {
                     if (u.id === action.userId) {
                         return {...u, followed: false};
                     }
-
                     return u;
                 }),
             };
 
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching};
+
+        case TOGGLE_IS_FETCHING_FOLLOW:
+            return {
+                ...state,
+                isFetchingFollow: action.isFetching
+                    ? [...state.isFetchingFollow, action.userId]
+                    : state.isFetchingFollow.filter(id => id !== action.userId)
+            };
 
         default:
             return state;
