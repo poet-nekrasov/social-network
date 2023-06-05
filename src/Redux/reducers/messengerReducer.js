@@ -9,7 +9,6 @@ export const sendMyMessage = () => ({type: SEND_MY_MESSAGE});
 export const deleteAllMyMessages = () => ({type: DELETE_ALL_MY_MESSAGES});
 
 let initialState = {
-
     myDialogs: {
         myDialogsList: [
             {id: '1', name: 'Jotaro Kujo'},
@@ -22,7 +21,6 @@ let initialState = {
     },
 
     myMessages: {
-
         myMessagesList: [],
 
         values: {
@@ -30,9 +28,7 @@ let initialState = {
             sendButton: 'Send',
             deleteButton: 'Delete all myMessages'
         },
-
     }
-
 }
 
 const messengerReducer = (state = initialState, action) => {

@@ -16,7 +16,7 @@ let Users = (props) => {
             return (
                 <span
                     className={num === props.currentPage ? classes.selected : undefined}
-                    onClick={() => props.onSetCurrentPage(num)}
+                    onClick={() => props.getCurrentPage(num)}
                 >
                     {num}
                 </span>
@@ -25,15 +25,10 @@ let Users = (props) => {
     );
 
     let elementsUsers = props.usersList.map(u => {
-
             return (
-
                 <div key={u.id}>
-
                     <div>
-
                         <NavLink to={`/My Profile/${u.id}`}>
-
                             <img
                                 className={classes.userAvatar}
                                 src={u.photos.small !== null
@@ -41,21 +36,17 @@ let Users = (props) => {
                                     : images.defaultUserAvatar}
                                 alt="avatar of user"
                             />
-
                         </NavLink>
-
                     </div>
 
                     <div>
-
                         {
-
                             u.followed === true
 
                             ?
                             <button
                                 className={classes.unfollowButton}
-                                onClick={() => props.onUnfollowFromUser(u.id)}
+                                onClick={() => props.unfollowFromUser(u.id)}
                                 disabled={props.isFetchingFollow.some(id => id === u.id)}
                             >
                                 {props.unfollowButtonValue}
@@ -64,14 +55,12 @@ let Users = (props) => {
                             :
                             <button
                                 className={classes.followButton}
-                                onClick={() => props.onFollowOnUser(u.id)}
+                                onClick={() => props.followOnUser(u.id)}
                                 disabled={props.isFetchingFollow.some(id => id === u.id)}
                             >
                                 {props.followButtonValue}
                             </button>
-
                         }
-
                     </div>
 
                     <div className={classes.name}>
@@ -79,16 +68,13 @@ let Users = (props) => {
                             {u.name}
                         </NavLink>
                     </div>
-
                 </div>
             );
         }
     );
 
     return (
-
         <div className={classes.usersPageWrapper}>
-
             <div className={classes.usersPagination}>
                 {elementsPagination}
             </div>
@@ -96,10 +82,8 @@ let Users = (props) => {
             <div>
                 {elementsUsers}
             </div>
-
         </div>
     );
-
 }
 
 export default Users;

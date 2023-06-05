@@ -8,11 +8,9 @@ import {connect} from "react-redux";
 import Messenger from "./Messenger/Messenger";
 
 class MessengerContainer extends React.Component {
-
     render() {
         return <Messenger {...this.props}/>
-    }
-
+    }   
 }
 
 let mapStateToProps = (state) => ({messenger: state.messengerPage});

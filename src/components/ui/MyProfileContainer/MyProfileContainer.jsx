@@ -1,42 +1,30 @@
 import React from "react";
 import {
     addMyPost,
-    deleteAllPosts, setUserProfile,
+    deleteAllPosts, currentUserProfile,
     updateMyNewPost
 } from "../../../Redux/reducers/myProfileReducer";
 import {connect} from "react-redux";
 import MyProfile from "./MyProfile/MyProfile";
 import withRouter from "../../../withRouter/withRouter";
-import {myProfileAPI} from "../../../api/api";
 
 class MyProfileContainer extends React.Component {
-
     componentDidMount() {
-
-        let userId = this.props.router.params.userId;
-
-        myProfileAPI.getUserProfile(userId)
-            .then(data => {
-                this.props.setUserProfile(data);
-            })
-
+        this.props.currentUserProfile(this.props.router.params.userId);
     }
 
     render() {
         return <MyProfile {...this.props}/>
     }
-
 }
 
 
 
 let mapStateToProps = (state) => ({myProfile: state.myProfilePage});
 export default connect(mapStateToProps, {
-
-    setUserProfile,
+    currentUserProfile,
 
     updateMyNewPost,
     addMyPost,
     deleteAllPosts
-
 })(withRouter(MyProfileContainer));

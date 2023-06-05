@@ -14,21 +14,19 @@ const MyPosts = (props) => {
         )
     );
 
-    let onUpdateMyNewPost = (event) => props.updateMyNewPost(event.target.value);
+    let updateMyNewPost = (event) => props.updateMyNewPost(event.target.value);
     let onAddMyPost = () => props.addMyPost();
     let onDeleteAllPosts = () => props.deleteAllPosts();
 
     return (
-
         <div className={classes.myPosts}>
-
             <h3>My posts</h3>
 
             <textarea
                 className={classes.textArea}
                 placeholder='Enter text is here'
                 value={props.myPosts.values.currentPostText}
-                onChange={onUpdateMyNewPost}
+                onChange={updateMyNewPost}
             />
 
             <button
@@ -48,11 +46,8 @@ const MyPosts = (props) => {
             <div className={classes.items}>
                 {myPostsList}
             </div>
-
         </div>
-
     );
-
 }
 
 export default MyPosts;

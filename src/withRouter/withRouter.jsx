@@ -9,6 +9,7 @@ function withRouter(Component) {
         let location = useLocation();
         let navigate = useNavigate();
         let params = useParams();
+        
         return (
             <Component
                 {...props}
@@ -18,7 +19,6 @@ function withRouter(Component) {
     }
 
     return ComponentWithRouterProp;
-
 }
 
 export default withRouter;

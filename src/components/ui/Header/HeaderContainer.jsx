@@ -5,15 +5,12 @@ import {connect} from "react-redux";
 import {authUserAPI} from "../../../api/api";
 
 class HeaderContainer extends React.Component {
-
     componentDidMount() {
-
         authUserAPI.getAuthUserData()
             .then(data => {
                 let {id, email, login} = data.data;
                 this.props.setAuthUserData(id, email, login);
             });
-
     }
 
     render() {
@@ -26,7 +23,6 @@ class HeaderContainer extends React.Component {
             />
         );
     }
-
 }
 
 let mapStateToProps = (state) => ({auth: state.auth});

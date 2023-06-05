@@ -14,19 +14,14 @@ import Music from "./components/ui/Music/Music";
 import Settings from "./components/ui/Settings/Settings";
 
 const App = () => {
-
     return (
-
         <div className='wrapper'>
-
             <HeaderContainer />
 
             <NavBarContainer />
 
             <div className="content">
-
                 <Routes>
-
                     <Route
                         path='/Home'
                         element={<Home/>}
@@ -67,15 +62,10 @@ const App = () => {
                         path='/Settings'
                         element={<Settings/>}
                     />
-
                 </Routes>
-
             </div>
-
         </div>
-
     );
-
 }
 
 export default App;

@@ -3,110 +3,56 @@ import {connect} from "react-redux";
 import Users from "./Users/Users";
 import {
     followOnUser,
-    setCurrentPage,
-    setUsers, toggleIsFetching, toggleIsFetchingFollow,
+    getCurrentPage,
+    getUsers, toggleIsFetching, toggleIsFetchingFollow,
     unfollowFromUser
 } from "../../../Redux/reducers/usersReducer";
 import {Preloader} from "../../Preloader";
-import {usersAPI} from "../../../api/api";
 
 class UsersContainer extends React.Component {
-
     componentDidMount() {
-
-        this.props.toggleIsFetching(true);
-
-        usersAPI.getUsers(this.props.users.inOnePageUsersAmount)
-            .then(data => {
-                this.props.setUsers(data.items);
-                this.props.toggleIsFetching(false);
-            });
-
-
+        this.props.getUsers();
     }
 
-    onSetCurrentPage = (currentPage) => {
+    getCurrentPage = (currentPage) => this.props.getCurrentPage(currentPage);
 
-        this.props.toggleIsFetching(true);
-        this.props.setCurrentPage(currentPage);
+    followOnUser = (userId) => this.props.followOnUser(userId);
 
-        usersAPI.getCurrentPage(this.props.users.inOnePageUsersAmount, currentPage)
-            .then(data => {
-                this.props.setUsers(data.items);
-                this.props.toggleIsFetching(false);
-            });
-
-    }
-
-    onFollowOnUser = (userId) => {
-
-        this.props.toggleIsFetchingFollow(true, userId);
-
-        usersAPI.postSubOnUser(userId)
-            .then(data => {
-                this.props.followOnUser(userId);
-                this.props.toggleIsFetchingFollow(false, userId);
-            });
-
-    }
-
-    onUnfollowFromUser = (userId) => {
-
-        this.props.toggleIsFetchingFollow(true, userId);
-
-        usersAPI.deleteSubOnUser(userId)
-            .then(data => {
-                this.props.unfollowFromUser(userId);
-                this.props.toggleIsFetchingFollow(false, userId);
-            });
-
-    }
+    unfollowFromUser = (userId) => this.props.unfollowFromUser(userId);
 
     render() {
-
         return (
-
             <>
-
                 {this.props.users.isFetching ? <Preloader/> : null}
 
                 <Users
-
                     usersList={this.props.users.usersList}
                     totalUsersAmount={this.props.users.totalUsersAmount}
                     inOnePageUsersAmount={this.props.users.inOnePageUsersAmount}
                     currentPage={this.props.users.currentPage}
-
                     followButtonValue={this.props.users.followButtonValue}
                     unfollowButtonValue={this.props.users.unfollowButtonValue}
                     isFetchingFollow={this.props.users.isFetchingFollow}
 
-                    onSetCurrentPage={this.onSetCurrentPage}
-                    onFollowOnUser={this.onFollowOnUser}
-                    onUnfollowFromUser={this.onUnfollowFromUser}
-
+                    getCurrentPage={this.getCurrentPage}
+                    followOnUser={this.followOnUser}
+                    unfollowFromUser={this.unfollowFromUser}
                 />
-
             </>
-
         );
-
     }
-
 }
 
 let mapStateToProps = (state) => ({users: state.usersPage});
 export default connect(mapStateToProps, {
-
-    setUsers,
+    getUsers,
     followOnUser,
     unfollowFromUser,
 
-    setCurrentPage,
+    getCurrentPage,
 
     toggleIsFetching,
     toggleIsFetchingFollow
-
 })(UsersContainer);
 
 

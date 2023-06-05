@@ -9,77 +9,49 @@ const sample = axios.create({
 });
 
 export const authUserAPI = {
-
     getAuthUserData() {
-
         return sample.get('auth/me')
             .then(response => {
                 if (response.data.resultCode === 0) {
                     return response.data;
                 }
             });
-
     }
-
 }
 
 export const myProfileAPI = {
-
     getUserProfile(userId) {
-
         return sample.get(`profile/${userId}`)
-            .then(response => {
-                    return response.data;
-                }
-            );
-
+            .then(response => response.data);
     }
-
 }
 
 export const usersAPI = {
-
     getUsers(inOnePageUsersAmount) {
-
         return sample.get(`users?count=${inOnePageUsersAmount}`)
-            .then(response => {
-                    return response.data;
-                }
-            );
-
+            .then(response => response.data);
     },
 
     getCurrentPage(inOnePageUsersAmount, currentPage) {
-
         return sample.get(`users?count=${inOnePageUsersAmount}&page=${currentPage}`)
-            .then(response => {
-                    return response.data;
-                }
-            );
-
+            .then(response =>  response.data);
     },
 
-    postSubOnUser(userId) {
-
+    postSubUser(userId) {
         return sample.post(`follow/${userId}`, {}, {withCredentials: true})
             .then(response => {
                 if (response.data.resultCode === 0) {
                     return response.data;
                 }
             });
-
     },
 
-    deleteSubOnUser(userId) {
-
+    deleteSubUser(userId) {
         return sample.delete(`follow/${userId}`)
             .then(response => {
                 if (response.data.resultCode === 0) {
                     return response.data;
                 }
             });
-
-    },
-
-
+    }
 }
