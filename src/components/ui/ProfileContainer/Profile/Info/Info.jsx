@@ -8,14 +8,13 @@ const Info = (props) => {
     }
 
     return (
-        <div className={classes.info}>
+        <div>
             <div className={classes.avatar}>
                 <img src={props.profile.photos.small} alt='human'/>
             </div>
 
-            <div className={classes.myProfileDescription}>
+            <div className={classes.profileDescription}>
                 <div>{props.profile.fullName}</div>
-                
                 <div>{props.profile.lookingForAJobDescription}</div>
             </div>
         </div>

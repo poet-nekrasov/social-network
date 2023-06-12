@@ -1,17 +1,15 @@
 import React from "react";
-import classes from './NavBarItem.module.css';
-import {NavLink} from "react-router-dom";
+import classes from "./NavBarItem.module.css";
+import { NavLink } from "react-router-dom";
 
 const NavBarItem = (props) => {
-    let path = '/' + props.name;
+  let composePath = "/" + props.name;
 
-    return (
-        <div className={classes.navBarItem}>
-            <NavLink to={path}>
-                {props.name}
-            </NavLink>
-        </div>
-    );
-}
+  return (
+    <div className={classes.point}>
+      <NavLink to={composePath}>{props.name}</NavLink>
+    </div>
+  );
+};
 
 export default NavBarItem;

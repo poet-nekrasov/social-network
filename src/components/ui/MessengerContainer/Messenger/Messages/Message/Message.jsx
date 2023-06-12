@@ -1,7 +1,7 @@
 import React from "react";
-import classes from './MyMessage.module..css';
+import classes from './Message.module.css';
 
-const MyMessage = (props) => {
+const Message = (props) => {
     return (
         <div className={classes.message}>
             {props.message}
@@ -9,4 +9,4 @@ const MyMessage = (props) => {
     );
 }
 
-export default MyMessage;
+export default Message;

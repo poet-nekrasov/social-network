@@ -1,12 +1,7 @@
-.myMessages {
+.messages {
     text-indent: 100px;
     padding: 30px;
 }
-
-.myMessagesList {
-    padding: 5px;
-}
-
 .events {
     padding: 10px;
 }
@@ -16,13 +11,12 @@
     font-size: 30px;
 }
 
-.sendButton {
+.buttonSend {
     color: green;
     font-size: 30px;
 }
 
-.deleteButton {
+.buttonDelete {
     color: red;
     font-size: 30px;
 }
-

@@ -1,25 +1,21 @@
 import React from "react";
 import {
-    deleteAllMyMessages,
-    sendMyMessage,
-    updateMyNewMessage
+  deleteAllMessages,
+  sendMessage,
+  updateMessage,
 } from "../../../Redux/reducers/messengerReducer";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import Messenger from "./Messenger/Messenger";
 
 class MessengerContainer extends React.Component {
-    render() {
-        return <Messenger {...this.props}/>
-    }   
+  render() {
+    return <Messenger {...this.props} />;
+  }
 }
 
-let mapStateToProps = (state) => ({messenger: state.messengerPage});
+let mapStateToProps = (state) => ({ messenger: state.messengerPage });
 export default connect(mapStateToProps, {
-    updateMyNewMessage,
-    sendMyMessage,
-    deleteAllMyMessages
+  updateMessage,
+  sendMessage,
+  deleteAllMessages,
 })(MessengerContainer);
-
-
-
-

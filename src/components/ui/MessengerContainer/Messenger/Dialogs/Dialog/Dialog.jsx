@@ -1,12 +1,12 @@
 import React from "react";
-import classes from './MyDialog.module.css';
+import classes from './Dialog.module.css';
 import {NavLink} from "react-router-dom";
 
-let MyDialog = (props) => {
-    let path = '/myDialogs/' + props.id;
+let Dialog = (props) => {
+    let path = '/dialog/' + props.id;
 
     return (
-        <div className={classes.myDialog}>
+        <div className={classes.dialog}>
             <NavLink to={path}>
                 {props.name}
             </NavLink>
@@ -14,4 +14,4 @@ let MyDialog = (props) => {
     );
 }
 
-export default MyDialog;
+export default Dialog;

@@ -1,17 +1,9 @@
-.usersPageWrapper {
-
+.selected {
+    font-weight: bold;
 }
 
-.users {
-
-}
-
-.usersPagination {
-
-}
-
-.name {
-
+.user {
+    border: 2px solid;
 }
 
 .userAvatar {
@@ -19,29 +11,10 @@
     height: 40px;
 }
 
-.selected {
-    font-weight: bold;
-}
-
-.pageNumbers {
-
-}
-
-.status {
-
-}
-
-.followed {
-
-}
-
-.followButton {
+.follow {
     color: green;
 }
 
-.unfollowButton {
+.unfollow {
     color: red;
 }
-
-
-

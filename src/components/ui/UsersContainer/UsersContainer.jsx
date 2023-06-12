@@ -1,58 +1,56 @@
 import React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import Users from "./Users/Users";
 import {
-    followOnUser,
-    getCurrentPage,
-    getUsers, toggleIsFetching, toggleIsFetchingFollow,
-    unfollowFromUser
+  setSub,
+  getUsersSelectedPage,
+  getUsers,
+  deleteSub,
 } from "../../../Redux/reducers/usersReducer";
-import {Preloader} from "../../Preloader";
+import { Preloader } from "../../Preloader";
 
 class UsersContainer extends React.Component {
-    componentDidMount() {
-        this.props.getUsers();
-    }
+  componentDidMount() {
+    this.props.getUsers(this.props.users.onePageUsersAmount);
+  }
 
-    getCurrentPage = (currentPage) => this.props.getCurrentPage(currentPage);
+  handleGetUsers = (selectedPage) => {
+    return this.props.getUsersSelectedPage(
+      this.props.users.onePageUsersAmount,
+      selectedPage
+    );
+  };
 
-    followOnUser = (userId) => this.props.followOnUser(userId);
+  handleFollow = (userId) => this.props.setSub(userId);
 
-    unfollowFromUser = (userId) => this.props.unfollowFromUser(userId);
+  handleUnfollow = (userId) => this.props.deleteSub(userId);
 
-    render() {
-        return (
-            <>
-                {this.props.users.isFetching ? <Preloader/> : null}
+  render() {
+    return (
+      <>
+        {this.props.users.isFetching ? <Preloader /> : null}
 
-                <Users
-                    usersList={this.props.users.usersList}
-                    totalUsersAmount={this.props.users.totalUsersAmount}
-                    inOnePageUsersAmount={this.props.users.inOnePageUsersAmount}
-                    currentPage={this.props.users.currentPage}
-                    followButtonValue={this.props.users.followButtonValue}
-                    unfollowButtonValue={this.props.users.unfollowButtonValue}
-                    isFetchingFollow={this.props.users.isFetchingFollow}
-
-                    getCurrentPage={this.getCurrentPage}
-                    followOnUser={this.followOnUser}
-                    unfollowFromUser={this.unfollowFromUser}
-                />
-            </>
-        );
-    }
+        <Users
+          usersList={this.props.users.usersList}
+          usersAmount={this.props.users.usersAmount}
+          onePageUsersAmount={this.props.users.onePageUsersAmount}
+          selectedPage={this.props.users.selectedPage}
+          buttonFollow={this.props.users.buttonFollow}
+          buttonUnfollow={this.props.users.buttonUnfollow}
+          idUsers={this.props.users.idUsers}
+          handleGetUsers={this.handleGetUsers}
+          handleFollow={this.handleFollow}
+          handleUnfollow={this.handleUnfollow}
+        />
+      </>
+    );
+  }
 }
 
-let mapStateToProps = (state) => ({users: state.usersPage});
+let mapStateToProps = (state) => ({ users: state.usersPage });
 export default connect(mapStateToProps, {
-    getUsers,
-    followOnUser,
-    unfollowFromUser,
-
-    getCurrentPage,
-
-    toggleIsFetching,
-    toggleIsFetchingFollow
+  getUsers,
+  getUsersSelectedPage,
+  setSub,
+  deleteSub,
 })(UsersContainer);
-
-

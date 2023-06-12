@@ -1,12 +1,7 @@
 import React from "react";
-import classes from './Home.module.css';
 
 const Home = () => {
-    return (
-        <div className={classes.home}>
-            Hello
-        </div>
-    );
-}
+  return <div>Hello</div>;
+};
 
 export default Home;

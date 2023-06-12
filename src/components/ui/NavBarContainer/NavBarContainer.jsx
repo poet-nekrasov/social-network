@@ -13,6 +13,4 @@ class NavBarContainer extends React.Component {
 }
 let mapStateToProps = (state) => ({navBar: state.navBar});
 
-let mapDispatchToProps = (dispatch) => ({someFunc: () => console.log('hello')});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBarContainer);
+export default connect(mapStateToProps, {})(NavBarContainer);

@@ -1,5 +1,5 @@
-.myPosts {
-    color: sienna;
+.posts {
+    color: rgb(43, 20, 223);
 }
 
 .textArea {
@@ -8,17 +8,15 @@
 }
 
 .items {
-    color: navajowhite;
+    color: rgb(197, 70, 24);
 }
 
-.addButton {
+.buttonAdd {
     color: green;
     font-size: 30px;
 }
 
-.deleteButton{
+.buttonDelete {
     color: red;
     font-size: 30px;
 }
-
-

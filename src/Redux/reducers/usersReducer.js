@@ -1,122 +1,149 @@
 import { usersAPI } from "../../api/api";
+const FOLLOW = "FOLLOW";
+const UNFOLLOW = "UNFOLLOW";
+const SET_USERS = "SET_USERS";
+const SET_SELECTED_PAGE = "SET_SELECTED_PAGE";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const FOLLOWING_PROGRESS = "FOLLOWING_PROGRESS";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const TOGGLE_IS_FETCHING_FOLLOW = 'TOGGLE_IS_FETCHING_FOLLOW';
+export const setUsers = (usersList) => ({
+  type: SET_USERS,
+  usersList,
+});
 
-export const setUsers = (usersList) => ({type: SET_USERS, usersList});
-export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
+export const setSelectedPage = (selectedPage) => ({
+  type: SET_SELECTED_PAGE,
+  selectedPage,
+});
 
-export const subId = (userId) => ({type: FOLLOW, userId});
-export const unsubId = (userId) => ({type: UNFOLLOW, userId});
+export const follow = (userId) => ({
+  type: FOLLOW,
+  userId,
+});
 
-export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
-export const toggleIsFetchingFollow = (isFetching, userId) => ({type: TOGGLE_IS_FETCHING_FOLLOW, isFetching, userId});
+export const unfollow = (userId) => ({
+  type: UNFOLLOW,
+  userId,
+});
+
+export const toggleIsFetching = (isFetching) => ({
+  type: TOGGLE_IS_FETCHING,
+  isFetching,
+});
+
+export const followingProgress = (isFetching, userId) => ({
+  type: FOLLOWING_PROGRESS,
+  isFetching,
+  userId,
+});
 
 let initialState = {
-    usersList: [],
-    totalUsersAmount: 50,
-    inOnePageUsersAmount: 5,
-    currentPage: 1,
-    followButtonValue: 'Follow',
-    unfollowButtonValue: 'Unfollow',
-    isFetching: true,
-    isFetchingFollow: []
+  usersList: [],
+  usersAmount: 50,
+  onePageUsersAmount: 5,
+  selectedPage: 1,
+  buttonFollow: "Follow",
+  buttonUnfollow: "Unfollow",
+  isFetching: true,
+  idUsers: [],
 };
 
-export const getUsers = () => {
-    this.toggleIsFetching(true);
+export const getUsers = (onePageUsersAmount) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
 
-    usersAPI.getUsers(this.inOnePageUsersAmount)
-        .then(data => {
-            this.setUsers(data.items);
-            this.toggleIsFetching(false);
-        });        
-}
+    usersAPI.getUsers(onePageUsersAmount).then((data) => {
+      dispatch(setUsers(data.items));
+      dispatch(toggleIsFetching(false));
+    });
+  };
+};
 
-export const getCurrentPage = (currentPage) => {
-    this.toggleIsFetching(true);
-    this.setCurrentPage(currentPage);
+export const getUsersSelectedPage = (onePageUsersAmount, selectedPage) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    dispatch(setSelectedPage(selectedPage));
 
-    usersAPI.getCurrentPage(this.inOnePageUsersAmount, currentPage)
-        .then(data => {
-            this.setUsers(data.items);
-            this.toggleIsFetching(false);
-        });
-}
+    usersAPI
+      .getUsersSelectedPage(onePageUsersAmount, selectedPage)
+      .then((data) => {
+        dispatch(setUsers(data.items));
+        dispatch(toggleIsFetching(false));
+      });
+  };
+};
 
-export const followOnUser = (userId) => {
-    this.toggleIsFetchingFollow(true, userId);
+export const setSub = (userId) => {
+  return (dispatch) => {
+    dispatch(followingProgress(true, userId));
 
-    usersAPI.postSubUser(userId)
-        .then(data => {
-            this.subId(userId);
-            this.toggleIsFetchingFollow(false, userId);
-        });
-} 
+    usersAPI.setSub(userId).then((data) => {
+      dispatch(follow(userId));
+      dispatch(followingProgress(false, userId));
+    });
+  };
+};
 
-export const unfollowFromUser = (userId) => {
-    this.toggleIsFetchingFollow(true, userId);
+export const deleteSub = (userId) => {
+  return (dispatch) => {
+    dispatch(followingProgress(true, userId));
 
-    usersAPI.deleteSubUser(userId)
-        .then(data => {
-            this.unsubId(userId);
-            this.toggleIsFetchingFollow(false, userId);
-        });
-}
+    usersAPI.deleteSub(userId).then((data) => {
+      dispatch(unfollow(userId));
+      dispatch(followingProgress(false, userId));
+    });
+  };
+};
 
 const usersReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case SET_USERS:
-            return {...state, usersList: action.usersList};
+  switch (action.type) {
+    case SET_USERS:
+      return { ...state, usersList: action.usersList };
 
-        case SET_CURRENT_PAGE:
-            return {...state, currentPage: action.currentPage};
+    case SET_SELECTED_PAGE:
+      return { ...state, selectedPage: action.selectedPage };
 
-        case FOLLOW:
-            return {
-                ...state,
+    case FOLLOW:
+      return {
+        ...state,
 
-                usersList: state.usersList.map(u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: true};
-                    }
+        usersList: state.usersList.map((u) => {
+          if (u.id === action.userId) {
+            return { ...u, followed: true };
+          }
 
-                    return u;
-                })
-            };
+          return u;
+        }),
+      };
 
-        case UNFOLLOW:
-            return {
-                ...state,
+    case UNFOLLOW:
+      return {
+        ...state,
 
-                usersList: state.usersList.map(u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: false};
-                    }
+        usersList: state.usersList.map((u) => {
+          if (u.id === action.userId) {
+            return { ...u, followed: false };
+          }
 
-                    return u;
-                }),
-            };
+          return u;
+        }),
+      };
 
-        case TOGGLE_IS_FETCHING:
-            return {...state, isFetching: action.isFetching};
+    case TOGGLE_IS_FETCHING:
+      return { ...state, isFetching: action.isFetching };
 
-        case TOGGLE_IS_FETCHING_FOLLOW:
-            return {
-                ...state,
-                
-                isFetchingFollow: action.isFetching
-                    ? [...state.isFetchingFollow, action.userId]
-                    : state.isFetchingFollow.filter(id => id !== action.userId)
-            };
+    case FOLLOWING_PROGRESS:
+      return {
+        ...state,
 
-        default:
-            return state;
-    }
+        idUsers: action.isFetching
+          ? [...state.idUsers, action.userId]
+          : state.idUsers.filter((id) => id !== action.userId),
+      };
+
+    default:
+      return state;
+  }
 };
 
 export default usersReducer;

@@ -8,7 +8,7 @@ const NavBar = (props) => {
     );
 
     return (
-        <nav className={ classes.navBarNames }>
+        <nav className={classes.navBarNames}>
             {componentsNavNames}
         </nav>
     );
