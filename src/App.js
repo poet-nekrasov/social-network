@@ -12,6 +12,7 @@ import Home from "./components/ui/Home/Home";
 import News from "./components/ui/News/News";
 import Music from "./components/ui/Music/Music";
 import Settings from "./components/ui/Settings/Settings";
+import Login from "./components/ui/Login/Login";
 
 const App = () => {
   return (
@@ -22,6 +23,8 @@ const App = () => {
 
       <div className="content">
         <Routes>
+          <Route path='/Login' element={<Login />} />
+          
           <Route path="/Home" element={<Home />} />
 
           <Route path="/Profile" element={<ProfileContainer />} />

@@ -1,0 +1,29 @@
+[33mcommit 0664e22cd26a450e08b080a26c778f0f18079221[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: poet-nekrasov <poet-nekrasov@mail.ru>
+Date:   Mon Jun 12 07:10:03 2023 +0500
+
+    refactoring by names, indents ; added thunks
+
+[33mcommit ae66a54e353923b88b022e69eee28aadea859dfa[m
+Author: poet-nekrasov <poet-nekrasov@mail.ru>
+Date:   Mon Jun 5 11:49:32 2023 +0500
+
+    refactoring methods in container-components
+
+[33mcommit 2beee804327fff0910d34f32a504a2e8edff096e[m
+Author: poet-nekrasov <poet-nekrasov@mail.ru>
+Date:   Tue May 9 02:00:49 2023 +0500
+
+    attribute disabled in <button>; methods array.some, array.filter
+
+[33mcommit d394d5b08c5185274cb56cddf6aa360663f2762d[m
+Author: poet-nekrasov <poet-nekrasov@mail.ru>
+Date:   Sun May 7 19:17:39 2023 +0500
+
+    working with /auth/me; /profile/{userId}; /follow/{userId}; custom withRouter instead of withRouter(HOC) to display other profiles; refactoring axios.(get, post, delete) by using api.js; withCredentials; resultCode
+
+[33mcommit 735a7e5e275eda0ffb36894c6388672096361f0e[m
+Author: poet-nekrasov <poet-nekrasov@mail.ru>
+Date:   Fri Mar 31 23:24:22 2023 +0500
+
+    Lesson 59

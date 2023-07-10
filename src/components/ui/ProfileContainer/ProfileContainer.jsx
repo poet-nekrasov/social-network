@@ -8,6 +8,7 @@ import {
 import { connect } from "react-redux";
 import Profile from "./Profile/Profile";
 import withRouter from "../../../withRouter/withRouter";
+import { withRedirect } from "../../hoc/withRedirect";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -19,10 +20,19 @@ class ProfileContainer extends React.Component {
   }
 }
 
+let AuthRedirect = withRedirect(ProfileContainer);
+
+let WithRouter = withRouter(AuthRedirect);
+
 let mapStateToProps = (state) => ({ profile: state.profilePage });
+
 export default connect(mapStateToProps, {
   getSelectedProfile,
   updateInjectedText,
   addPost,
   deleteAllPosts,
-})(withRouter(ProfileContainer));
+})(WithRouter);
+
+
+
+
