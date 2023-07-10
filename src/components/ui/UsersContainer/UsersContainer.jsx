@@ -1,6 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
 import Users from "./Users/Users";
+import { connect } from "../../../../node_modules/react-redux/es/exports";
 import {
   setSub,
   getUsersSelectedPage,

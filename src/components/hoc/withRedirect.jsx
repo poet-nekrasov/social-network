@@ -1,6 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { connect } from "../../../node_modules/react-redux/es/exports";
+import { Navigate } from "../../../node_modules/react-router-dom/dist/index";
 
 let mapStateToPropsForRedirect = (state) => (
     {
