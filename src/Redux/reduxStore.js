@@ -6,6 +6,7 @@ import usersReducer from "./reducers/usersReducer";
 import authReducer from "./reducers/authReducer";
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
+import { reducer as formReducer } from "redux-form";
 
 let reducers = combineReducers({
   navBar: navBarReducer,
@@ -13,6 +14,7 @@ let reducers = combineReducers({
   messengerPage: messengerReducer,
   usersPage: usersReducer,
   auth: authReducer,
+  form: formReducer,
 });
 
 let store = configureStore({ reducer: reducers }, applyMiddleware(thunk));

@@ -2,7 +2,6 @@ import React from "react";
 import {
   deleteAllMessages,
   sendMessage,
-  updateMessage,
 } from "../../../Redux/reducers/messengerReducer";
 import { connect } from "../../../../node_modules/react-redux/es/exports";
 import Messenger from "./Messenger/Messenger";
@@ -20,7 +19,6 @@ let mapStateToProps = (state) => ({ messenger: state.messengerPage });
 
 export default compose(
   connect(mapStateToProps, {
-    updateMessage,
     sendMessage,
     deleteAllMessages,
   }),

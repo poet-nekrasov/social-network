@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
-
+import { Routes, Route } from "../node_modules/react-router-dom/dist/index";
 import HeaderContainer from "./components/ui/Header/HeaderContainer";
 import NavBarContainer from "./components/ui/NavBarContainer/NavBarContainer";
 import ProfileContainer from "./components/ui/ProfileContainer/ProfileContainer";
@@ -12,7 +11,7 @@ import Home from "./components/ui/Home/Home";
 import News from "./components/ui/News/News";
 import Music from "./components/ui/Music/Music";
 import Settings from "./components/ui/Settings/Settings";
-import Login from "./components/ui/Login/Login";
+import { LoginContainer } from "./components/ui/LoginContainer/LoginContainer";
 
 const App = () => {
   return (
@@ -23,7 +22,7 @@ const App = () => {
 
       <div className="content">
         <Routes>
-          <Route path='/Login' element={<Login />} />
+          <Route path='/Login' element={<LoginContainer/>} />
           
           <Route path="/Home" element={<Home />} />
 

@@ -39,8 +39,8 @@ export const followingProgress = (isFetching, userId) => ({
 
 let initialState = {
   usersList: [],
-  usersAmount: 50,
-  onePageUsersAmount: 5,
+  usersAmount: 100,
+  onePageUsersAmount: 7,
   selectedPage: 1,
   buttonFollow: "Follow",
   buttonUnfollow: "Unfollow",
@@ -77,10 +77,12 @@ export const setSub = (userId) => {
   return (dispatch) => {
     dispatch(followingProgress(true, userId));
 
-    usersAPI.setSub(userId).then((data) => {
-      dispatch(follow(userId));
-      dispatch(followingProgress(false, userId));
-    });
+    dispatch(follow(userId));
+    dispatch(followingProgress(false, userId));
+    // usersAPI.setSub(userId).then((data) => {
+    //   dispatch(follow(userId));
+    //   dispatch(followingProgress(false, userId));
+    // });
   };
 };
 
@@ -88,10 +90,12 @@ export const deleteSub = (userId) => {
   return (dispatch) => {
     dispatch(followingProgress(true, userId));
 
-    usersAPI.deleteSub(userId).then((data) => {
-      dispatch(unfollow(userId));
-      dispatch(followingProgress(false, userId));
-    });
+    dispatch(unfollow(userId));
+    dispatch(followingProgress(false, userId));
+    // usersAPI.deleteSub(userId).then((data) => {
+    //   dispatch(unfollow(userId));
+    //   dispatch(followingProgress(false, userId));
+    // });
   };
 };
 

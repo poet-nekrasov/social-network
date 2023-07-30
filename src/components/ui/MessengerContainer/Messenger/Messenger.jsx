@@ -10,7 +10,6 @@ let Messenger = (props) => {
 
       <Messages
         messages={props.messenger.messages}
-        updateMessage={props.updateMessage}
         sendMessage={props.sendMessage}
         deleteAllMessages={props.deleteAllMessages}
       />

@@ -1,18 +1,43 @@
 import { profileAPI } from "../../api/api";
-const UPDATE_INJECTED_TEXT = "UPDATE_INJECTED_TEXT";
-const ADD_POST = "ADD_POST";
-const DELETE_ALL_POSTS = "DELETE_ALL_POSTS";
+
 const SET_SELECTED_PROFILE = "SET_SELECTED_PROFILE";
+
+const ADD_POST = "ADD_POST";
+
+const DELETE_ALL_POSTS = "DELETE_ALL_POSTS";
+
+const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
 
 export const setSelectedProfile = (profile) => ({
   type: SET_SELECTED_PROFILE,
   profile,
 });
-export const updateInjectedText = (injectedText) => ({
-  type: UPDATE_INJECTED_TEXT,
-  injectedText: injectedText,
+
+export const setProfileStatus = (status) => ({
+  type: SET_PROFILE_STATUS,
+  status,
 });
-export const addPost = () => ({ type: ADD_POST });
+
+export const getProfileStatus = (userId) => {
+  return (dispatch) => {
+    profileAPI
+      .getStatus(userId)
+      .then((data) => dispatch(setProfileStatus(data)));
+  };
+};
+
+export const updateProfileStatus = (status) => {
+  console.log('updateInBLL');
+
+  return (dispatch) => {
+    profileAPI
+      .updateStatus(status)
+      .then((data) => dispatch(setProfileStatus(status)));
+  };
+};
+
+export const addPost = (newPost) => ({ type: ADD_POST, newPost });
+
 export const deleteAllPosts = () => ({ type: DELETE_ALL_POSTS });
 
 export const getSelectedProfile = (userId) => {
@@ -24,6 +49,8 @@ export const getSelectedProfile = (userId) => {
 };
 
 let initialState = {
+  status: null,
+
   profile: null,
 
   posts: {
@@ -31,42 +58,31 @@ let initialState = {
 
     values: {
       numPost: 1,
-      injectedText: "",
-      buttonAdd: "Add post",
-      buttonDelete: "Delete all posts",
     },
   },
 };
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_SELECTED_PROFILE:
+    case SET_PROFILE_STATUS:
       return {
-        ...state, 
-
-        profile: action.profile 
+        ...state,
+        
+        status: action.status,
       };
 
-    case UPDATE_INJECTED_TEXT:
+    case SET_SELECTED_PROFILE:
       return {
         ...state,
 
-        posts: {
-          ...state.posts,
-
-          values: {
-            ...state.posts.values,
-
-            injectedText: action.injectedText,
-          },
-        },
+        profile: action.profile,
       };
 
     case ADD_POST:
-      if (state.posts.values.injectedText !== "") {
+      if (action.newPost !== "") {
         let post = {
           id: state.posts.values.numPost,
-          message: state.posts.values.injectedText,
+          message: action.newPost,
           likesCount: 0,
         };
 
@@ -77,16 +93,12 @@ const profileReducer = (state = initialState, action) => {
 
           posts: {
             postsList: [
-              ...state.posts.postsList, 
+              ...state.posts.postsList,
 
               post
             ],
-
-            values: {
-               ...state.posts.values, 
-
-               injectedText: "" 
-              },
+           
+            values: {...state.posts.values},
           },
         };
       }

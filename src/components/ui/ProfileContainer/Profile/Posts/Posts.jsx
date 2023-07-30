@@ -1,6 +1,7 @@
 import React from "react";
 import classes from './Posts.module.css';
 import PostItem from "./PostItem/PostItem";
+import AddPostForm from "./AddPostForm/AddPostForm";
 
 const Posts = (props) => {
     let postsList = props.posts.postsList.map(
@@ -14,33 +15,23 @@ const Posts = (props) => {
         )
     );
 
-    let handleUpdateInjectedText = (event) => props.updateInjectedText(event.target.value);
-    let handleAddPost = () => props.addPost();
-    let handleDeleteAllPosts = () => props.deleteAllPosts();
+    let handleAddPost = (formData) => {
+        props.addPost(formData.newPost);
+    }
 
+    let handleDeleteAllPosts = () => props.deleteAllPosts();
+   
     return (
         <div className={classes.posts}>
-            <h3>My posts</h3>
+            <h2>My posts</h2>
 
-            <textarea
-                className={classes.textArea}
-                placeholder='Enter text is here'
-                value={props.posts.values.injectedText}
-                onChange={handleUpdateInjectedText}
-            />
-
-            <button
-                className={classes.buttonAdd}
-                onClick={handleAddPost}
-            >
-                {props.posts.values.buttonAdd}
-            </button>
+            <AddPostForm onSubmit={handleAddPost}/>
 
             <button
                 className={classes.buttonDelete}
                 onClick={handleDeleteAllPosts}
             >
-                {props.posts.values.buttonDelete}
+                Delete all posts
             </button>
 
             <div className={classes.items}>

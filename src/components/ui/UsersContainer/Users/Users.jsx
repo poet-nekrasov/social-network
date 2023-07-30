@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Users.module.css";
 import images from "../../../../assets/images/images";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "../../../../../node_modules/react-router-dom/dist/index";
 
 let Users = (props) => {
   let pagesAmount = Math.ceil(props.usersAmount / props.onePageUsersAmount);

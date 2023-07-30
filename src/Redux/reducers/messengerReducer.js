@@ -1,12 +1,7 @@
-const UPDATE_MESSAGE = "UPDATE_MESSAGE";
 const SEND_MESSAGE = "SEND_MESSAGE";
 const DELETE_ALL_MESSAGES = "DELETE_ALL_MESSAGES";
 
-export const updateMessage = (injectedMessage) => ({
-  type: UPDATE_MESSAGE,
-  injectedMessage: injectedMessage,
-});
-export const sendMessage = () => ({ type: SEND_MESSAGE });
+export const sendMessage = (newMessage) => ({ type: SEND_MESSAGE, newMessage });
 export const deleteAllMessages = () => ({ type: DELETE_ALL_MESSAGES });
 
 let initialState = {
@@ -23,33 +18,13 @@ let initialState = {
 
   messages: {
     messagesList: [],
-
-    values: {
-      injectedMessage: "",
-      buttonSend: "Send",
-      buttonDelete: "Delete all messages",
-    },
   },
 };
 
 const messengerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_MESSAGE:
-      return {
-        ...state,
-
-        messages: {
-          ...state.messages,
-
-          values: {
-            ...state.messages.values,
-            injectedMessage: action.injectedMessage,
-          },
-        },
-      };
-
     case SEND_MESSAGE:
-      let text = state.messages.values.injectedMessage;
+      let text = action.newMessage;
 
       return {
         ...state,
@@ -57,14 +32,10 @@ const messengerReducer = (state = initialState, action) => {
         messages: {
           messagesList: [
             ...state.messages.messagesList,
-            { id: "1", message: text },
-          ],
 
-          values: {
-            ...state.messages.values,
-            injectedMessage: "",
-          },
-        },
+            { id: "1", message: text },
+          ]
+        }
       };
 
     case DELETE_ALL_MESSAGES:

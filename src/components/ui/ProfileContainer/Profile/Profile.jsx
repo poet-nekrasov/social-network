@@ -5,11 +5,14 @@ import Posts from "./Posts/Posts";
 const Profile = (props) => {
   return (
     <div>
-      <Info profile={props.profile.profile} />
+      <Info
+        status={props.status}
+        profile={props.profile}
+        updateProfileStatus={props.updateProfileStatus}
+      />
 
       <Posts
-        posts={props.profile.posts}
-        updateInjectedText={props.updateInjectedText}
+        posts={props.posts}
         addPost={props.addPost}
         deleteAllPosts={props.deleteAllPosts}
       />

@@ -3,17 +3,19 @@ import {
   addPost,
   deleteAllPosts,
   getSelectedProfile,
-  updateInjectedText,
+  updateProfileStatus,
+  getProfileStatus,
 } from "../../../Redux/reducers/profileReducer";
 import Profile from "./Profile/Profile";
 import { connect } from "../../../../node_modules/react-redux/es/exports";
 import withRouter from "../../../withRouter/withRouter";
-import { withRedirect } from "../../hoc/withRedirect";
+// import { withRedirect } from "../../hoc/withRedirect";
 import compose from "../../../../node_modules/redux/src/compose";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
     this.props.getSelectedProfile(this.props.router.params.userId);
+    this.props.getProfileStatus(3);
   }
 
   render() {
@@ -21,18 +23,22 @@ class ProfileContainer extends React.Component {
   }
 }
 
-let mapStateToProps = (state) => ({ profile: state.profilePage });
+let mapStateToProps = (state) => ({
+  profile: state.profilePage.profile,
+  status: state.profilePage.status,
+  posts: state.profilePage.posts,
+});
 
 export default compose(
   connect(mapStateToProps, {
     getSelectedProfile,
-    updateInjectedText,
+    getProfileStatus,
+    updateProfileStatus,
     addPost,
-    deleteAllPosts
+    deleteAllPosts,
   }),
 
-  withRouter,
+  withRouter
 
   // withRedirect,
-)(ProfileContainer)
-
+)(ProfileContainer);
