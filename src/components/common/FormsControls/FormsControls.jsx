@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./FormsControls.module.css";
 
-export const FormsControls = ({ input, meta, children, ...props }) => {
+export const FormsControls = ({ input, meta, children, ...restProps }) => {
   let hasError = meta.error && meta.touched;
 
   return (
@@ -27,7 +27,7 @@ export const TextArea = (props) => {
 
 export const Input = (props) => {
   const { input, meta, children, ...restProps } = props;
-
+  
   return (
     <FormsControls {...props}>
       <input {...input} {...restProps} /> 

@@ -1,8 +1,8 @@
-.formControls textarea {
+.formControls input {
   border: solid yellow 2px;
 }
 
-.formControls.error textarea {
+.formControls.error input {
   border: solid red 5px;
 }
 

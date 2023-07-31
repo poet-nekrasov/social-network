@@ -9,8 +9,26 @@ const instance = axios.create({
 });
 
 export const authUserAPI = {
-  getAuthData() {
+  me() {
     return instance.get("auth/me").then((response) => {
+      if (response.data.resultCode === 0) {
+        return response.data;
+      }
+    });
+  },
+
+  logIn({ email, password, rememberMe }) {
+    return instance
+      .post("auth/login", { email, password, rememberMe })
+      .then((response) => {
+        if (response.data.resultCode === 0) {
+          return response.data;
+        }
+      });
+  },
+
+  logOut() {
+    return instance.delete("auth/login").then((response) => {
       if (response.data.resultCode === 0) {
         return response.data;
       }
@@ -30,7 +48,7 @@ export const profileAPI = {
   },
 
   updateStatus(status) {
-    return instance.put(`profile/status`, {status}).then((response) => {
+    return instance.put(`profile/status`, { status }).then((response) => {
       if (response.data.resultCode === 0) {
         return response.data;
       }
@@ -52,13 +70,11 @@ export const usersAPI = {
   },
 
   setSub(userId) {
-    return instance
-      .post(`follow/${userId}`, {}, { withCredentials: true })
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          return response.data;
-        }
-      });
+    return instance.post(`follow/${userId}`, {}).then((response) => {
+      if (response.data.resultCode === 0) {
+        return response.data;
+      }
+    });
   },
 
   deleteSub(userId) {

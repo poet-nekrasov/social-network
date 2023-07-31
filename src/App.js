@@ -11,7 +11,7 @@ import Home from "./components/ui/Home/Home";
 import News from "./components/ui/News/News";
 import Music from "./components/ui/Music/Music";
 import Settings from "./components/ui/Settings/Settings";
-import { LoginContainer } from "./components/ui/LoginContainer/LoginContainer";
+import LoginContainer from "./components/ui/LoginContainer/LoginContainer";
 
 const App = () => {
   return (

@@ -13,7 +13,7 @@ let reducers = combineReducers({
   profilePage: profileReducer,
   messengerPage: messengerReducer,
   usersPage: usersReducer,
-  auth: authReducer,
+  authData: authReducer,
   form: formReducer,
 });
 

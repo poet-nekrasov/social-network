@@ -5,7 +5,7 @@ import {
 } from "../../../../../utils/validators/validators";
 import { Input } from "../../../../common/FormsControls/FormsControls";
 
-const maxLength20 = maxLengthCreator(20);
+const maxLength30 = maxLengthCreator(30);
 
 const LoginForm = (props) => {
   return (
@@ -13,10 +13,10 @@ const LoginForm = (props) => {
       <div>
         <Field
           component={Input}
-          name={"login"}
+          name={"email"}
           type={"text"}
-          placeholder={"Login"}
-          validate={[required, maxLength20]}
+          placeholder={"Email"}
+          validate={[required, maxLength30]}
         />
       </div>
 
@@ -24,11 +24,10 @@ const LoginForm = (props) => {
         <Field
           component={Input}
           name={"password"}
-          type={"text"}
+          type={"password"}
           placeholder={"Password"}
-          validate={[required, maxLength20]}
+          validate={[required, maxLength30]}
           typeInput={'input'}
-
         />
       </div>
       

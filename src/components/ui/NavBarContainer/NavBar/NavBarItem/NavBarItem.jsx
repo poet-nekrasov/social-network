@@ -6,8 +6,10 @@ const NavBarItem = (props) => {
   let composePath = "/" + props.name;
 
   return (
-    <div className={classes.point}>
-      <NavLink to={composePath}>{props.name}</NavLink>
+    <div>
+      <div className={classes.point}>
+        <NavLink to={composePath}>{props.name}</NavLink>
+      </div>
     </div>
   );
 };
