@@ -9,13 +9,14 @@ import {
 import Profile from "./Profile/Profile";
 import { connect } from "../../../../node_modules/react-redux/es/exports";
 import withRouter from "../../../withRouter/withRouter";
-// import { withRedirect } from "../../hoc/withRedirect";
 import compose from "../../../../node_modules/redux/src/compose";
+import { getUserAuthId, getPosts, getProfile, getStatus } from "../../../Redux/selectors/profileSelectors";
+import { withRedirect } from "../../hoc/withRedirect";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
     this.props.getSelectedProfile(this.props.router.params.userId);
-    this.props.getProfileStatus(3);
+    this.props.getProfileStatus(11);
   }
 
   render() {
@@ -24,9 +25,10 @@ class ProfileContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-  profile: state.profilePage.profile,
-  status: state.profilePage.status,
-  posts: state.profilePage.posts,
+  profile: getProfile(state),
+  status: getStatus(state),
+  posts: getPosts(state),
+  userAuthId: getUserAuthId(state),
 });
 
 export default compose(
@@ -38,7 +40,7 @@ export default compose(
     deleteAllPosts,
   }),
 
-  withRouter
+  withRouter,
 
-  // withRedirect,
+  withRedirect
 )(ProfileContainer);

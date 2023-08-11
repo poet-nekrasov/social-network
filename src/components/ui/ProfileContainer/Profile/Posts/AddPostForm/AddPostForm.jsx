@@ -1,5 +1,5 @@
 import { Field, reduxForm } from "redux-form";
-import classes from "./AddPostForm.module.css";
+import styles from "./AddPostForm.module.css";
 import {
   maxLengthCreator,
   required,
@@ -15,11 +15,11 @@ const AddPostForm = (props) => {
         component={TextArea}
         name={"newPost"}
         validate={[required, maxLength20]}
-        className={classes.textArea}
+        className={styles.textArea}
         placeholder={"Need to enter text is here"}
       />
 
-      <button className={classes.buttonAdd}>Add new post</button>
+      <button className={styles.buttonAdd}>Add new post</button>
     </form>
   );
 };

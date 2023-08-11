@@ -1,56 +1,58 @@
 import React from "react";
-import Users from "./Users/Users";
 import { connect } from "../../../../node_modules/react-redux/es/exports";
 import {
-  setSub,
-  getUsersSelectedPage,
-  getUsers,
-  deleteSub,
+    setSub,
+    deleteSub,
+    getAllUsers,
 } from "../../../Redux/reducers/usersReducer";
-import { Preloader } from "../../Preloader";
-
+import {
+    getIsFetching,
+    getPageSize,
+    getSelectedPage,
+    getTotalUsersCount,
+    getUsersId,
+    getUsersList,
+} from "../../../Redux/selectors/usersSelectors";
+import { Users } from "./Users/Users";
 class UsersContainer extends React.Component {
-  componentDidMount() {
-    this.props.getUsers(this.props.users.onePageUsersAmount);
-  }
+    componentDidMount() {
+        this.props.getAllUsers(
+            this.props.selectedPage,
+            this.props.pageUsersCount
+        );
+    }
 
-  handleGetUsers = (selectedPage) => {
-    return this.props.getUsersSelectedPage(
-      this.props.users.onePageUsersAmount,
-      selectedPage
-    );
-  };
-
-  handleFollow = (userId) => this.props.setSub(userId);
-
-  handleUnfollow = (userId) => this.props.deleteSub(userId);
-
-  render() {
-    return (
-      <>
-        {this.props.users.isFetching ? <Preloader /> : null}
-
-        <Users
-          usersList={this.props.users.usersList}
-          usersAmount={this.props.users.usersAmount}
-          onePageUsersAmount={this.props.users.onePageUsersAmount}
-          selectedPage={this.props.users.selectedPage}
-          buttonFollow={this.props.users.buttonFollow}
-          buttonUnfollow={this.props.users.buttonUnfollow}
-          idUsers={this.props.users.idUsers}
-          handleGetUsers={this.handleGetUsers}
-          handleFollow={this.handleFollow}
-          handleUnfollow={this.handleUnfollow}
-        />
-      </>
-    );
-  }
+    render() {
+        return (
+            <>
+                <Users
+                    isFetching={this.props.isFetching}
+                    usersList={this.props.usersList}
+                    pageUsersCount={this.props.pageUsersCount}
+                    selectedPage={this.props.selectedPage}
+                    usersIdProgressInSub={this.props.usersIdProgressInSub}
+                    totalUsersCount={this.props.totalUsersCount}
+                    
+                    getAllUsers={this.props.getAllUsers}
+                    setSub={this.props.setSub}
+                    deleteSub={this.props.deleteSub}
+                />
+            </>
+        );
+    }
 }
 
-let mapStateToProps = (state) => ({ users: state.usersPage });
+let mapStateToProps = (state) => ({
+    isFetching: getIsFetching(state),
+    usersList: getUsersList(state),
+    pageUsersCount: getPageSize(state),
+    selectedPage: getSelectedPage(state),
+    usersIdProgressInSub: getUsersId(state),
+    totalUsersCount: getTotalUsersCount(state),
+});
+
 export default connect(mapStateToProps, {
-  getUsers,
-  getUsersSelectedPage,
-  setSub,
-  deleteSub,
+    getAllUsers,
+    setSub,
+    deleteSub,
 })(UsersContainer);

@@ -2,20 +2,16 @@ import { Navigate } from "../../../../../node_modules/react-router-dom/dist/inde
 import LoginForm from "./LoginForm/LoginForm";
 
 export const Login = (props) => {
-  const submit = ({ email, password, rememberMe }) =>
-    props.logIn({ email, password, rememberMe });
+    const logIn = (formData) =>
+        props.logIn(formData.email, formData.password, formData.rememberMe);
 
-  return (
-    <div>
-      {props.isAuth ? (
+    return props.isAuth ? (
         <Navigate to={"/Profile"} />
-      ) : (
+    ) : (
         <div>
-          <h1> Login </h1>
+            <h1> Login </h1>
 
-          <LoginForm onSubmit={submit} />
+            <LoginForm onSubmit={logIn} />
         </div>
-      )}
-    </div>
-  );
+    );
 };

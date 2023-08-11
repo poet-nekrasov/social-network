@@ -1,5 +1,5 @@
 import React from "react";
-import classes from './Posts.module.css';
+import styles from './Posts.module.css';
 import PostItem from "./PostItem/PostItem";
 import AddPostForm from "./AddPostForm/AddPostForm";
 
@@ -22,19 +22,19 @@ const Posts = (props) => {
     let handleDeleteAllPosts = () => props.deleteAllPosts();
    
     return (
-        <div className={classes.posts}>
+        <div className={styles.posts}>
             <h2>My posts</h2>
 
             <AddPostForm onSubmit={handleAddPost}/>
 
             <button
-                className={classes.buttonDelete}
+                className={styles.buttonDelete}
                 onClick={handleDeleteAllPosts}
             >
                 Delete all posts
             </button>
 
-            <div className={classes.items}>
+            <div className={styles.items}>
                 {postsList}
             </div>
         </div>

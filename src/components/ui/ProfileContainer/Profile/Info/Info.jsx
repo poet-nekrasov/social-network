@@ -1,31 +1,29 @@
 import React from "react";
-import classes from "./Info.module.css";
+import styles from "./Info.module.css";
 import { Preloader } from "../../../../Preloader";
-import UserStatus from "./UserStatus/UserStatus";
+import { UserStatus } from "./UserStatus/UserStatus";
 
 const Info = (props) => {
-  if (!props.profile) {
-    return <Preloader />;
-  }
+    return props.profile ? (
+        <div>
+            <div className={styles.avatar}>
+                <img src={props.profile.photos.small} alt="human" />
+            </div>
 
-  return (
-    <div>
-      <div className={classes.avatar}>
-        <img src={props.profile.photos.small} alt="human" />
-      </div>
+            <div className={styles.profileDescription}>
+                <UserStatus
+                    status={props.profile.userId} // Статус не предусмотрен API, поэтому выводим userId
+                    updateProfileStatus={props.updateProfileStatus}
+                />
 
-      <div className={classes.profileDescription}>
-        <UserStatus
-          status={props.status}
-          updateProfileStatus={props.updateProfileStatus}
-        />
+                <div>{props.profile.fullName}</div>
 
-        <div>{props.profile.fullName}</div>
-
-        <div>{props.profile.lookingForAJobDescription}</div>
-      </div>
-    </div>
-  );
+                <div>{props.profile.lookingForAJobDescription}</div>
+            </div>
+        </div>
+    ) : (
+        <Preloader />
+    );
 };
 
 export default Info;

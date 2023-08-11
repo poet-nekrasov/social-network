@@ -1,13 +1,13 @@
 import React from "react";
-import classes from "./NavBar.module.css";
+import styles from "./NavBar.module.css";
 import NavBarItem from "./NavBarItem/NavBarItem";
 
 const NavBar = (props) => {
-  let componentsNavNames = props.navBar.navBarNames.map((nav) => (
-    <NavBarItem name={nav.name} key={nav.id} />
+  let componentsNavNames = props.navBarNames.map((nav) => (
+    <NavBarItem key={nav.id} name={nav.name} />
   ));
 
-  return <nav className={classes.navBarNames}>{componentsNavNames}</nav>;
+  return <nav className={styles.navBarNames}>{componentsNavNames}</nav>;
 };
 
 export default NavBar;

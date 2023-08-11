@@ -13,7 +13,7 @@ import Music from "./components/ui/Music/Music";
 import Settings from "./components/ui/Settings/Settings";
 import LoginContainer from "./components/ui/LoginContainer/LoginContainer";
 
-const App = () => {
+const App = (props) => {
   return (
     <div className="wrapper">
       <HeaderContainer />
@@ -22,12 +22,12 @@ const App = () => {
 
       <div className="content">
         <Routes>
-          <Route path='/Login' element={<LoginContainer/>} />
-          
           <Route path="/Home" element={<Home />} />
 
+          <Route path="/Login" element={<LoginContainer />} />
+
           <Route path="/Profile" element={<ProfileContainer />} />
-          
+
           <Route path="/Profile/:userId" element={<ProfileContainer />} />
 
           <Route path="/Messenger" element={<MessengerContainer />} />

@@ -9,120 +9,116 @@ const DELETE_ALL_POSTS = "DELETE_ALL_POSTS";
 const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
 
 export const setSelectedProfile = (profile) => ({
-  type: SET_SELECTED_PROFILE,
-  profile,
+    type: SET_SELECTED_PROFILE,
+    profile,
 });
 
 export const setProfileStatus = (status) => ({
-  type: SET_PROFILE_STATUS,
-  status,
+    type: SET_PROFILE_STATUS,
+    status,
 });
-
-export const getProfileStatus = (userId) => {
-  return (dispatch) => {
-    profileAPI
-      .getStatus(userId)
-      .then((data) => dispatch(setProfileStatus(data)));
-  };
-};
-
-export const updateProfileStatus = (status) => {
-  console.log('updateInBLL');
-
-  return (dispatch) => {
-    profileAPI
-      .updateStatus(status)
-      .then((data) => dispatch(setProfileStatus(status)));
-  };
-};
 
 export const addPost = (newPost) => ({ type: ADD_POST, newPost });
 
 export const deleteAllPosts = () => ({ type: DELETE_ALL_POSTS });
 
+export const getProfileStatus = (userId) => {
+    return (dispatch) => {
+        profileAPI
+            .getStatus(userId)
+            .then((data) => dispatch(setProfileStatus(data)));
+    };
+};
+
+export const updateProfileStatus = (status) => {
+    return (dispatch) => {
+        profileAPI.updateStatus(status).then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(getProfileStatus(data));
+            }
+        });
+    };
+};
+
 export const getSelectedProfile = (userId) => {
-  return (dispatch) => {
-    profileAPI
-      .getProfile(userId)
-      .then((data) => dispatch(setSelectedProfile(data)));
-  };
+    return (dispatch) => {
+        profileAPI
+            .getProfile(userId)
+            .then((data) => dispatch(setSelectedProfile(data)));
+    };
 };
 
 let initialState = {
-  status: null,
+    status: null,
 
-  profile: null,
+    profile: null,
 
-  posts: {
-    postsList: [],
+    posts: {
+        postsList: [],
 
-    values: {
-      numPost: 1,
+        values: {
+            numPost: 1,
+        },
     },
-  },
 };
 
 const profileReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SET_PROFILE_STATUS:
-      return {
-        ...state,
-        
-        status: action.status,
-      };
+    switch (action.type) {
+        case SET_PROFILE_STATUS:
+            return {
+                ...state,
 
-    case SET_SELECTED_PROFILE:
-      return {
-        ...state,
+                status: action.status,
+            };
 
-        profile: action.profile,
-      };
+        case SET_SELECTED_PROFILE:
+            return {
+                ...state,
 
-    case ADD_POST:
-      if (action.newPost !== "") {
-        let post = {
-          id: state.posts.values.numPost,
-          message: action.newPost,
-          likesCount: 0,
-        };
+                profile: action.profile,
+            };
 
-        state.posts.values.numPost++;
+        case ADD_POST:
+            if (action.newPost !== "") {
+                let post = {
+                    id: state.posts.values.numPost,
+                    message: action.newPost,
+                    likesCount: 0,
+                };
 
-        return {
-          ...state,
+                state.posts.values.numPost++;
 
-          posts: {
-            postsList: [
-              ...state.posts.postsList,
+                return {
+                    ...state,
 
-              post
-            ],
-           
-            values: {...state.posts.values},
-          },
-        };
-      }
+                    posts: {
+                        postsList: [...state.posts.postsList, post],
 
-      return state;
+                        values: { ...state.posts.values },
+                    },
+                };
+            }
 
-    case DELETE_ALL_POSTS:
-      return {
-        ...state,
+            return state;
 
-        posts: {
-          postsList: [],
+        case DELETE_ALL_POSTS:
+            return {
+                ...state,
 
-          values: {
-            ...state.posts.values,
+                posts: {
+                    postsList: [],
 
-            numPost: 1,
-          },
-        },
-      };
+                    values: {
+                        ...state.posts.values,
 
-    default:
-      return state;
-  }
+                        numPost: 1,
+                    },
+                },
+            };
+
+        default:
+            return state;
+    }
 };
 
 export default profileReducer;

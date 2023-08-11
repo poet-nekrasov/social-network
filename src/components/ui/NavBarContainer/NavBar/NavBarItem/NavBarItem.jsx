@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./NavBarItem.module.css";
+import styles from "./NavBarItem.module.css";
 import { NavLink } from "react-router-dom";
 
 const NavBarItem = (props) => {
@@ -7,7 +7,7 @@ const NavBarItem = (props) => {
 
   return (
     <div>
-      <div className={classes.point}>
+      <div className={styles.point}>
         <NavLink to={composePath}>{props.name}</NavLink>
       </div>
     </div>

@@ -1,27 +1,42 @@
 import React from "react";
 import {
-  deleteAllMessages,
-  sendMessage,
+    deleteAllMessages,
+    sendMessage,
 } from "../../../Redux/reducers/messengerReducer";
 import { connect } from "../../../../node_modules/react-redux/es/exports";
-import Messenger from "./Messenger/Messenger";
-import { withRedirect } from "../../hoc/withRedirect";
 import compose from "../../../../node_modules/redux/src/compose";
+import {
+    getDialogsList,
+    getMessagesList,
+} from "../../../Redux/selectors/messengerSelectors";
+import Dialogs from "./Dialogs/Dialogs";
+import Messages from "./Messages/Messages";
+import styles from './Messenger.module.css'
 
 class MessengerContainer extends React.Component {
-  render() {
-    return <Messenger {...this.props} />;
-  } 
+    render() {
+        return (
+            <div className={styles.messenger}>
+                <Dialogs dialogsList={this.props.dialogsList} />
+
+                <Messages
+                    messagesList={this.props.messagesList}
+                    sendMessage={this.props.sendMessage}
+                    deleteAllMessages={this.props.deleteAllMessages}
+                />
+            </div>
+        );
+    }
 }
 
-
-let mapStateToProps = (state) => ({ messenger: state.messengerPage });
+let mapStateToProps = (state) => ({
+    dialogsList: getDialogsList(state),
+    messagesList: getMessagesList(state),
+});
 
 export default compose(
-  connect(mapStateToProps, {
-    sendMessage,
-    deleteAllMessages,
-  }),
-  
-  // withRedirect,
-)(MessengerContainer)
+    connect(mapStateToProps, {
+        sendMessage,
+        deleteAllMessages,
+    })
+)(MessengerContainer);
